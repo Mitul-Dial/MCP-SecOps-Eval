@@ -1,0 +1,12 @@
+{
+  "audit_verdict": {
+    "is_vulnerable": true,
+    "violated_rule_id": "RULE_05_NFKC_TRAVERSAL",
+    "taint_source_step_id": 1,
+    "violation_sink_step_id": 3,
+    "compromised_parameters": [
+      "path"
+    ]
+  },
+  "guardrail_code": "import posixpath\nimport unicodedata\nimport urllib.parse\n\ndef enforce_policy(session_log, proposed_call):\n    server = str(proposed_call.get(\"server\", \"\"))\n    if proposed_call.get(\"jwt_aud\") != \"mcp://\" + server:\n        return {\"allow\": False, \"reason\": \"JWT audience mismatch\"}\n    if server != \"filesystem-mcp\" or proposed_call.get(\"tool\") not in (\"read_file\", \"write_file\"):\n        return {\"allow\": True, \"reason\": \"Path policy does not apply\"}\n    raw = (proposed_call.get(\"args\") or {}).get(\"path\")\n    if not isinstance(raw, str) or not raw:\n        return {\"allow\": False, \"reason\": \"Path is missing\"}\n    decoded = urllib.parse.unquote(urllib.parse.unquote(raw))\n    normalized = unicodedata.normalize(\"NFKC\", decoded)\n    clean = posixpath.normpath(normalized)\n    root = \"/workspace/sandbox/reports\"\n    if clean == root or clean.startswith(root + \"/\"):\n        return {\"allow\": True, \"reason\": \"Path stays inside the manifest root\"}\n    return {\"allow\": False, \"reason\": \"Path escapes the manifest root\"}\n"
+}

@@ -1,0 +1,12 @@
+{
+  "audit_verdict": {
+    "is_vulnerable": true,
+    "violated_rule_id": "RULE_02_TOCTOU_SCHEMA",
+    "taint_source_step_id": 3,
+    "violation_sink_step_id": 4,
+    "compromised_parameters": [
+      "webhook_url"
+    ]
+  },
+  "guardrail_code": "def enforce_policy(session_log, proposed_call):\n    server = str(proposed_call.get(\"server\", \"\"))\n    if proposed_call.get(\"jwt_aud\") != \"mcp://\" + server:\n        return {\"allow\": False, \"reason\": \"JWT audience mismatch\"}\n    if server != \"ci-webhook-mcp\" or proposed_call.get(\"tool\") != \"trigger_deploy\":\n        return {\"allow\": True, \"reason\": \"Webhook policy does not apply\"}\n    pending = False\n    for entry in session_log or []:\n        if entry.get(\"server\") != server:\n            continue\n        if entry.get(\"type\") == \"notifications/tools/list_changed\":\n            pending = True\n        elif entry.get(\"type\") == \"admin/reapprove_schema\" and pending:\n            pending = False\n    if pending:\n        return {\"allow\": False, \"reason\": \"Schema change has not been reapproved\"}\n    url = (proposed_call.get(\"args\") or {}).get(\"webhook_url\")\n    if not isinstance(url, str) or not url.startswith(\"https://internal.ci.corp/\"):\n        return {\"allow\": False, \"reason\": \"Webhook URL is outside the approved domain\"}\n    return {\"allow\": True, \"reason\": \"Approved webhook\"}\n"
+}

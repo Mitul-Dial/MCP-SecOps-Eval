@@ -1,0 +1,12 @@
+{
+  "audit_verdict": {
+    "is_vulnerable": true,
+    "violated_rule_id": "RULE_03_SPLIT_TAINT",
+    "taint_source_step_id": 1,
+    "violation_sink_step_id": 4,
+    "compromised_parameters": [
+      "role_arn"
+    ]
+  },
+  "guardrail_code": "def _strings(value):\n    found = []\n    if isinstance(value, str):\n        found.append(value)\n    elif isinstance(value, dict):\n        for item in value.values():\n            found.extend(_strings(item))\n    elif isinstance(value, list):\n        for item in value:\n            found.extend(_strings(item))\n    return found\n\ndef enforce_policy(session_log, proposed_call):\n    server = str(proposed_call.get(\"server\", \"\"))\n    if proposed_call.get(\"jwt_aud\") != \"mcp://\" + server:\n        return {\"allow\": False, \"reason\": \"JWT audience mismatch\"}\n    if server != \"aws-iam-mcp\" or proposed_call.get(\"tool\") != \"assume_role\":\n        return {\"allow\": True, \"reason\": \"Role ARN policy does not apply\"}\n    arn = (proposed_call.get(\"args\") or {}).get(\"role_arn\")\n    prefix = \"arn:aws:iam::111122223333:role/DevSandbox-\"\n    if not isinstance(arn, str) or not arn.startswith(prefix):\n        return {\"allow\": False, \"reason\": \"Role ARN is outside the manifest prefix\"}\n    tainted = []\n    for entry in session_log or []:\n        if entry.get(\"server\") in (\"slack-mcp\", \"webhook-mcp\"):\n            tainted.extend(item for item in _strings(entry.get(\"output\")) if len(item) >= 4)\n    for secret in tainted:\n        if secret in arn:\n            return {\"allow\": False, \"reason\": \"Untrusted fragment in role ARN\"}\n    return {\"allow\": True, \"reason\": \"Role ARN is inside the sandbox prefix\"}\n"
+}

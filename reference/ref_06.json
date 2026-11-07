@@ -1,0 +1,12 @@
+{
+  "audit_verdict": {
+    "is_vulnerable": true,
+    "violated_rule_id": "RULE_06_TENANT_BLEED",
+    "taint_source_step_id": 1,
+    "violation_sink_step_id": 3,
+    "compromised_parameters": [
+      "account_id"
+    ]
+  },
+  "guardrail_code": "def enforce_policy(session_log, proposed_call):\n    server = str(proposed_call.get(\"server\", \"\"))\n    if proposed_call.get(\"jwt_aud\") != \"mcp://\" + server:\n        return {\"allow\": False, \"reason\": \"JWT audience mismatch\"}\n    if server != \"stripe-mcp\" or proposed_call.get(\"tool\") not in (\"issue_refund\", \"set_session_context\"):\n        return {\"allow\": True, \"reason\": \"Account binding does not apply\"}\n    account = (proposed_call.get(\"args\") or {}).get(\"account_id\")\n    tenant = str(proposed_call.get(\"tenant_id\", \"\"))\n    if not isinstance(account, str) or not account or account != \"acct_\" + tenant:\n        return {\"allow\": False, \"reason\": \"Account id is missing or bound to another tenant\"}\n    return {\"allow\": True, \"reason\": \"Account id matches the tenant\"}\n"
+}

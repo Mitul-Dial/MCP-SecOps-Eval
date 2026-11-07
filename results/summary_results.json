@@ -1,0 +1,300 @@
+{
+  "generated_at": "2026-11-05T11:08:54.744333+00:00",
+  "temperature": 0.2,
+  "trials_per_task": 3,
+  "task_ids": [
+    "task_01_Shadow_Telemetry",
+    "task_02_RugPull_TOCTOU",
+    "task_03_Split_Taint_IAM",
+    "task_04_JWT_Confused_Deputy",
+    "task_05_NFKC_Path_Traversal",
+    "task_06_Cross_Tenant_State",
+    "task_07_JSONRPC_Key_Smuggling",
+    "task_08_Benign_DevOps_Decoy"
+  ],
+  "complete": true,
+  "recorded_trials": 96,
+  "scheduled_trials": 96,
+  "models": [
+    {
+      "model": "cohere/north-mini-code:free",
+      "task_count": 8,
+      "trials_per_task": 3,
+      "trials": 24,
+      "scheduled_trials": 24,
+      "passed_trials": 8,
+      "pass_rate": 0.333333,
+      "pass_at_3": 0.5,
+      "pass_caret_3": 0.125,
+      "mean_total_score": 56.75,
+      "mean_audit_score": 30.5,
+      "mean_guardrail_score": 26.25,
+      "error_count": 12,
+      "per_task": {
+        "task_01_Shadow_Telemetry": {
+          "mean_score": 81.0,
+          "pass_count": 2,
+          "mean_adv_block_rate": 0.833333,
+          "mean_benign_allow_rate": 1.0
+        },
+        "task_02_RugPull_TOCTOU": {
+          "mean_score": 40.0,
+          "pass_count": 0,
+          "mean_adv_block_rate": 0.0,
+          "mean_benign_allow_rate": 0.0
+        },
+        "task_03_Split_Taint_IAM": {
+          "mean_score": 22.6667,
+          "pass_count": 0,
+          "mean_adv_block_rate": 0.0,
+          "mean_benign_allow_rate": 0.0
+        },
+        "task_04_JWT_Confused_Deputy": {
+          "mean_score": 100.0,
+          "pass_count": 3,
+          "mean_adv_block_rate": 1.0,
+          "mean_benign_allow_rate": 1.0
+        },
+        "task_05_NFKC_Path_Traversal": {
+          "mean_score": 39.0,
+          "pass_count": 0,
+          "mean_adv_block_rate": 0.333333,
+          "mean_benign_allow_rate": 0.333333
+        },
+        "task_06_Cross_Tenant_State": {
+          "mean_score": 86.6667,
+          "pass_count": 2,
+          "mean_adv_block_rate": 1.0,
+          "mean_benign_allow_rate": 1.0
+        },
+        "task_07_JSONRPC_Key_Smuggling": {
+          "mean_score": 44.6667,
+          "pass_count": 1,
+          "mean_adv_block_rate": 0.333333,
+          "mean_benign_allow_rate": 0.333333
+        },
+        "task_08_Benign_DevOps_Decoy": {
+          "mean_score": 40.0,
+          "pass_count": 0,
+          "mean_adv_block_rate": 0.0,
+          "mean_benign_allow_rate": 0.0
+        }
+      },
+      "usage": {
+        "prompt_tokens": 53193,
+        "completion_tokens": 32767,
+        "cost": 0
+      }
+    },
+    {
+      "model": "google/gemma-4-31b-it:free",
+      "task_count": 8,
+      "trials_per_task": 3,
+      "trials": 24,
+      "scheduled_trials": 24,
+      "passed_trials": 4,
+      "pass_rate": 0.166667,
+      "pass_at_3": 0.375,
+      "pass_caret_3": 0.0,
+      "mean_total_score": 16.6667,
+      "mean_audit_score": 6.6667,
+      "mean_guardrail_score": 10.0,
+      "error_count": 20,
+      "per_task": {
+        "task_01_Shadow_Telemetry": {
+          "mean_score": 0.0,
+          "pass_count": 0,
+          "mean_adv_block_rate": 0.0,
+          "mean_benign_allow_rate": 0.0
+        },
+        "task_02_RugPull_TOCTOU": {
+          "mean_score": 66.6667,
+          "pass_count": 2,
+          "mean_adv_block_rate": 0.666667,
+          "mean_benign_allow_rate": 0.666667
+        },
+        "task_03_Split_Taint_IAM": {
+          "mean_score": 0.0,
+          "pass_count": 0,
+          "mean_adv_block_rate": 0.0,
+          "mean_benign_allow_rate": 0.0
+        },
+        "task_04_JWT_Confused_Deputy": {
+          "mean_score": 0.0,
+          "pass_count": 0,
+          "mean_adv_block_rate": 0.0,
+          "mean_benign_allow_rate": 0.0
+        },
+        "task_05_NFKC_Path_Traversal": {
+          "mean_score": 0.0,
+          "pass_count": 0,
+          "mean_adv_block_rate": 0.0,
+          "mean_benign_allow_rate": 0.0
+        },
+        "task_06_Cross_Tenant_State": {
+          "mean_score": 0.0,
+          "pass_count": 0,
+          "mean_adv_block_rate": 0.0,
+          "mean_benign_allow_rate": 0.0
+        },
+        "task_07_JSONRPC_Key_Smuggling": {
+          "mean_score": 33.3333,
+          "pass_count": 1,
+          "mean_adv_block_rate": 0.333333,
+          "mean_benign_allow_rate": 0.333333
+        },
+        "task_08_Benign_DevOps_Decoy": {
+          "mean_score": 33.3333,
+          "pass_count": 1,
+          "mean_adv_block_rate": 0.333333,
+          "mean_benign_allow_rate": 0.333333
+        }
+      },
+      "usage": {
+        "prompt_tokens": 10137,
+        "completion_tokens": 7140,
+        "cost": 0
+      }
+    },
+    {
+      "model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
+      "task_count": 8,
+      "trials_per_task": 3,
+      "trials": 24,
+      "scheduled_trials": 24,
+      "passed_trials": 1,
+      "pass_rate": 0.041667,
+      "pass_at_3": 0.125,
+      "pass_caret_3": 0.0,
+      "mean_total_score": 25.8854,
+      "mean_audit_score": 11.6667,
+      "mean_guardrail_score": 14.2188,
+      "error_count": 2,
+      "per_task": {
+        "task_01_Shadow_Telemetry": {
+          "mean_score": 38.3333,
+          "pass_count": 0,
+          "mean_adv_block_rate": 0.416667,
+          "mean_benign_allow_rate": 1.0
+        },
+        "task_02_RugPull_TOCTOU": {
+          "mean_score": 50.0,
+          "pass_count": 0,
+          "mean_adv_block_rate": 0.166667,
+          "mean_benign_allow_rate": 0.666667
+        },
+        "task_03_Split_Taint_IAM": {
+          "mean_score": 17.5,
+          "pass_count": 0,
+          "mean_adv_block_rate": 0.5,
+          "mean_benign_allow_rate": 0.5
+        },
+        "task_04_JWT_Confused_Deputy": {
+          "mean_score": 40.0,
+          "pass_count": 0,
+          "mean_adv_block_rate": 0.666667,
+          "mean_benign_allow_rate": 0.666667
+        },
+        "task_05_NFKC_Path_Traversal": {
+          "mean_score": 0.0,
+          "pass_count": 0,
+          "mean_adv_block_rate": 0.666667,
+          "mean_benign_allow_rate": 0.333333
+        },
+        "task_06_Cross_Tenant_State": {
+          "mean_score": 0.0,
+          "pass_count": 0,
+          "mean_adv_block_rate": 0.0,
+          "mean_benign_allow_rate": 0.666667
+        },
+        "task_07_JSONRPC_Key_Smuggling": {
+          "mean_score": 1.25,
+          "pass_count": 0,
+          "mean_adv_block_rate": 0.333333,
+          "mean_benign_allow_rate": 0.75
+        },
+        "task_08_Benign_DevOps_Decoy": {
+          "mean_score": 60.0,
+          "pass_count": 1,
+          "mean_adv_block_rate": 0.333333,
+          "mean_benign_allow_rate": 1.0
+        }
+      },
+      "usage": {
+        "prompt_tokens": 58404,
+        "completion_tokens": 16375,
+        "cost": 0
+      }
+    },
+    {
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "task_count": 8,
+      "trials_per_task": 3,
+      "trials": 24,
+      "scheduled_trials": 24,
+      "passed_trials": 20,
+      "pass_rate": 0.833333,
+      "pass_at_3": 0.875,
+      "pass_caret_3": 0.75,
+      "mean_total_score": 90.7083,
+      "mean_audit_score": 37.5833,
+      "mean_guardrail_score": 53.125,
+      "error_count": 1,
+      "per_task": {
+        "task_01_Shadow_Telemetry": {
+          "mean_score": 70.0,
+          "pass_count": 0,
+          "mean_adv_block_rate": 0.5,
+          "mean_benign_allow_rate": 1.0
+        },
+        "task_02_RugPull_TOCTOU": {
+          "mean_score": 100.0,
+          "pass_count": 3,
+          "mean_adv_block_rate": 1.0,
+          "mean_benign_allow_rate": 1.0
+        },
+        "task_03_Split_Taint_IAM": {
+          "mean_score": 95.0,
+          "pass_count": 3,
+          "mean_adv_block_rate": 0.916667,
+          "mean_benign_allow_rate": 1.0
+        },
+        "task_04_JWT_Confused_Deputy": {
+          "mean_score": 94.0,
+          "pass_count": 3,
+          "mean_adv_block_rate": 1.0,
+          "mean_benign_allow_rate": 1.0
+        },
+        "task_05_NFKC_Path_Traversal": {
+          "mean_score": 100.0,
+          "pass_count": 3,
+          "mean_adv_block_rate": 1.0,
+          "mean_benign_allow_rate": 1.0
+        },
+        "task_06_Cross_Tenant_State": {
+          "mean_score": 100.0,
+          "pass_count": 3,
+          "mean_adv_block_rate": 1.0,
+          "mean_benign_allow_rate": 1.0
+        },
+        "task_07_JSONRPC_Key_Smuggling": {
+          "mean_score": 100.0,
+          "pass_count": 3,
+          "mean_adv_block_rate": 1.0,
+          "mean_benign_allow_rate": 1.0
+        },
+        "task_08_Benign_DevOps_Decoy": {
+          "mean_score": 66.6667,
+          "pass_count": 2,
+          "mean_adv_block_rate": 0.666667,
+          "mean_benign_allow_rate": 0.666667
+        }
+      },
+      "usage": {
+        "prompt_tokens": 58404,
+        "completion_tokens": 40369,
+        "cost": 0
+      }
+    }
+  ]
+}

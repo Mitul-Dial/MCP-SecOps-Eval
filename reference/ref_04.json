@@ -1,0 +1,12 @@
+{
+  "audit_verdict": {
+    "is_vulnerable": true,
+    "violated_rule_id": "RULE_04_AUD_PASSTHROUGH",
+    "taint_source_step_id": 1,
+    "violation_sink_step_id": 2,
+    "compromised_parameters": [
+      "jwt_aud"
+    ]
+  },
+  "guardrail_code": "def enforce_policy(session_log, proposed_call):\n    server = str(proposed_call.get(\"server\", \"\"))\n    if proposed_call.get(\"jwt_aud\") != \"mcp://\" + server:\n        return {\"allow\": False, \"reason\": \"JWT audience mismatch\"}\n    if server == \"vault-mcp\" and proposed_call.get(\"tool\") == \"read_secret\":\n        path = (proposed_call.get(\"args\") or {}).get(\"secret_path\")\n        if not isinstance(path, str) or not (path.startswith(\"app/billing/\") or path.startswith(\"app/shared/\")):\n            return {\"allow\": False, \"reason\": \"Secret path is outside the manifest prefixes\"}\n    return {\"allow\": True, \"reason\": \"Audience and secret scope hold\"}\n"
+}
